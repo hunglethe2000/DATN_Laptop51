@@ -10,7 +10,6 @@
         table {
             border: black solid 1px;
         }
-
     </style>
 </head>
 
@@ -20,7 +19,7 @@
     {{-- <p>Vui lòng truy cập <a href="{{ route('history') }}"> Laptop 51</a> để xem thêm thông tin</p> --}}
 
     <table border="1" class="table table-stripped">
-        <thead >
+        <thead>
             <tr>
                 <th class="col-2">Tên</th>
                 <th class="col-2">Thư</th>
@@ -41,6 +40,9 @@
             </tr>
         </tbody>
     </table>
+    <p>Bạn vui lòng đem máy đến của hàng để đúng thời gian</p>
+    Địa chỉ: Số 1, Trịnh Văn Bô, Nam Từ Liêm, Hà Nội
+    <p>Số điện thoại: 0399958700</p>
 </body>
 
 </html>

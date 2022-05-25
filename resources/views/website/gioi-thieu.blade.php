@@ -223,7 +223,7 @@
                                         </div>
                                         <div class="team-member-info pt-20">
                                             <h5 class="member-name"><a href="#">Nguyễn Thị Nhung</a></h5>
-                                            <p class="member-position">Trưởng Nhóm</p>
+                                            <p class="member-position"></p>
                                             <p class="mb-20">Thiết kế quản lý tài khoản, làm báo cáo, teseter
                                             </p>
                                             <ul class="footer-social">
@@ -356,7 +356,7 @@
                                         </div>
                                         <div class="team-member-info pt-20">
                                             <h5 class="member-name"><a href="#">Trần Tuấn Hợp</a></h5>
-                                            <p class="member-position">Thống kê</p>
+                                            <p class="member-position">Trưởng Nhóm</p>
                                             <p class="mb-20">Thiết kế quản lý thống kê sản phẩm,
                                                 lịch đặt và doanh thu của cửa hàng</p>
                                             <ul class="footer-social">

@@ -55,8 +55,8 @@ class BillController extends Controller
                 }
 
                 if ($request->code ?? null) {
-                        $q->where('code','like','%'. $request->code.'%');
-                    };
+                    $q->where('code', 'like', '%' . $request->code . '%');
+                };
 
                 if ($request->status == 'Đã thanh toán') {
                     $q->with('list_bill');
@@ -75,46 +75,46 @@ class BillController extends Controller
     {
         $bills = BillUser::all();
         $bills = DB::table('bill_users')
-        ->join('list_bill', 'list_bill.code' ,'=','bill_users.bill_code')
-        ->select('bill_users.*','list_bill.method','list_bill.status','list_bill.total_price','list_bill.type','list_bill.id as bill_id')
-        ->when($request->status, function ($query) use ($request) {
-            if($request->status == 5){
-                return $query->where('status', '=', '0' );
-            }
-            if($request->status == 1){
-                return $query->where('status', '=', '1' );
-            }
-            if($request->status == 2){
-                return $query->where('status', '=', '2');
-            }
-            if($request->status == 3){
-                return $query->where('status', '=', '3');
-            }
-            if($request->status == 4){
-                return $query->where('status', '=' , '4');
-            }
-            if($request->status == 0){
-                return $query->orderBy('status','ASC');
-            }
-        })->when($request->method, function ($query) use ($request) {
-            if($request->method == 0){
-                return $query->where('method', '=', '0' );
-            }
-            if($request->method == 1){
-                return $query->where('method', '=', '1' );
-            }
-            if($request->method == 2){
-                return $query->where('method', '=', '2');
-            }
-        })->when($request->bill_code, function ($query, $bill_code) {
-            return $query->where('bill_code', 'like', "%{$bill_code}%"); 
-        })->when($request->name, function ($query, $name){
-            return $query->where('name', 'like', "%{$name}%"); 
-        })->when($request->phone, function ($query, $phone){
-            return $query->where('phone', 'like', "%{$phone}%"); 
-        })->when($request->created_at, function ($query, $created_at){
-            return $query->whereDate('bill_users.created_at', '=', $created_at);
-        })->orderBy('created_at', 'DESC')->paginate(9);
+            ->join('list_bill', 'list_bill.code', '=', 'bill_users.bill_code')
+            ->select('bill_users.*', 'list_bill.method', 'list_bill.status', 'list_bill.total_price', 'list_bill.type', 'list_bill.id as bill_id')
+            ->when($request->status, function ($query) use ($request) {
+                if ($request->status == 5) {
+                    return $query->where('status', '=', '0');
+                }
+                if ($request->status == 1) {
+                    return $query->where('status', '=', '1');
+                }
+                if ($request->status == 2) {
+                    return $query->where('status', '=', '2');
+                }
+                if ($request->status == 3) {
+                    return $query->where('status', '=', '3');
+                }
+                if ($request->status == 4) {
+                    return $query->where('status', '=', '4');
+                }
+                if ($request->status == 0) {
+                    return $query->orderBy('status', 'ASC');
+                }
+            })->when($request->method, function ($query) use ($request) {
+                if ($request->method == 0) {
+                    return $query->where('method', '=', '0');
+                }
+                if ($request->method == 1) {
+                    return $query->where('method', '=', '1');
+                }
+                if ($request->method == 2) {
+                    return $query->where('method', '=', '2');
+                }
+            })->when($request->bill_code, function ($query, $bill_code) {
+                return $query->where('bill_code', 'like', "%{$bill_code}%");
+            })->when($request->name, function ($query, $name) {
+                return $query->where('name', 'like', "%{$name}%");
+            })->when($request->phone, function ($query, $phone) {
+                return $query->where('phone', 'like', "%{$phone}%");
+            })->when($request->created_at, function ($query, $created_at) {
+                return $query->whereDate('bill_users.created_at', '=', $created_at);
+            })->orderBy('created_at', 'DESC')->paginate(9);
         $bill_user = BillUser::all();
         // dd($bills);
         return view('admin.bills.index2', compact('bills', 'bill_user'));
@@ -172,16 +172,16 @@ class BillController extends Controller
         );
     }
     public function saveEdit(Request $request, $id)
-    {   
+    {
         $request->validate(
             [
-                'method' => ['required','numeric','between:0,2'],
-                'status' => ['required','numeric','between:0,4'],
+                'method' => ['required', 'numeric', 'between:0,2'],
+                'status' => ['required', 'numeric', 'between:0,4'],
                 'name' => ['required'],
-                'email' => ['required','email'],
-                'phone' => ['required','regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
+                'email' => ['required', 'email'],
+                'phone' => ['required', 'regex:/^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/'],
                 'address' => ['required'],
-                'total_price' => ['required','numeric','min:0'],
+                'total_price' => ['required', 'numeric', 'min:0'],
             ],
             [
                 'method.required' => 'Yêu cầu nhập phương thức thanh toán',
@@ -223,17 +223,19 @@ class BillController extends Controller
         $bill_user['note'] = $request->note;
         $list_bill->save();
         $bill_user->save();
-        Toastr::success('Sửa hóa đơn thành công','Thành công');
+        Toastr::success('Sửa hóa đơn thành công', 'Thành công');
         return redirect()->route('bill.index2');
     }
     public function sendMessage(Request $request)
     {
-        $request->validate([
-           'code_ship' => ['required'],
-        ],
+        $request->validate(
+            [
+                'code_ship' => ['required'],
+            ],
             [
                 'code_ship.required' => 'Yêu cầu nhập mã vận chuyển',
-            ]);
+            ]
+        );
         $phone = '+84' . $request->phone;
         $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
         $token = getenv("TWILIO_AUTH_TOKEN");
@@ -244,10 +246,10 @@ class BillController extends Controller
             $phone,
             array(
                 'from' => $twilio_number,
-                'body' => $request->code_bill . ' ' . $request->ship . ' Co ma van chuyen la: '. $request->code_ship,
+                'body' => $request->code_bill . ' ' . $request->ship . ' Co ma van chuyen la: ' . $request->code_ship . 'Xem chi tiết trong: https://goship.io/',
             )
-            );
-        Toastr::success('Gửi tin nhắn thành công','Thành công');
+        );
+        Toastr::success('Gửi tin nhắn thành công', 'Thành công');
         return back();
     }
 }

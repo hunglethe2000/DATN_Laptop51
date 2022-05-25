@@ -39,7 +39,7 @@
                 <th scope="col" class="sort" data-sort="name">Tên máy</th>
                 <th scope="col" class="sort" data-sort="budget">Tên khách hàng</th>
                 <th scope="col" class="sort" data-sort="status">Số điện thoại</th>
-                {{-- <th scope="col">Hình thức sửa</th> --}}
+                <th scope="col">Thời gian</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col" class="sort" data-sort="completion">Sửa thông tin</th>
                 @can('add-booking')
@@ -58,6 +58,7 @@
 
                     @endif</td>
                 <td>{{ $b->booking->phone }}</td>
+                <td>{{ $b->booking->date }}</td>
                 {{-- <td>@if ($b->repair_type=='TN')
                     {{ 'Tại nhà' }}
                     @else
